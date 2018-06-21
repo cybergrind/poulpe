@@ -1,0 +1,38 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false,
+        "loose": true
+      }
+    ],
+    "flow",
+    "stage-0",
+    "react"
+  ],
+  "plugins": [
+    "lodash",
+    "react-hot-loader/babel"
+  ],
+  "env": {
+    "production": {
+      "only": [
+        "src"
+      ],
+      "plugins": [
+        "transform-flow-strip-types",
+        "transform-react-constant-elements",
+        "transform-react-inline-elements",
+        "transform-react-remove-prop-types",
+        "transform-react-pure-class-to-function",
+        "transform-remove-console"
+      ]
+    },
+    "test": {
+      "plugins": [
+        "transform-es2015-modules-commonjs"
+      ]
+    }
+  }
+}
