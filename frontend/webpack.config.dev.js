@@ -1,5 +1,4 @@
 const baseConfig = require('./webpack.config.base')
-const chalk = require('chalk')
 const path = require('path')
 const glob = require('glob')
 const fs = require('fs')
@@ -12,7 +11,7 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 
 const plugins = []
 
-const API_SERVER = 'https://localhost'
+const API_SERVER = 'http://localhost:8999'
 const { INSIDE_DOCKER } = process.env
 
 
@@ -51,7 +50,7 @@ module.exports = (env, argv) => merge.smart(baseConfig(env, argv), {
   ].concat(plugins),
   devServer: {
     host: '0.0.0.0',
-    port: 3000,
+    port: 3001,
     contentBase: path.resolve(__dirname, 'dist'),
     compress: true,
     stats: 'errors-only',
