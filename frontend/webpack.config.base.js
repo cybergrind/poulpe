@@ -100,6 +100,7 @@ module.exports = (env, argv) => {
         'process.env': {
           NODE_ENV: JSON.stringify(argv.mode || process.env.NODE_ENV || 'production'),
         },
+        'WS_SERVER_DEFINE': '"ws://localhost:9011"',
       }),
       new webpack.NamedModulesPlugin(),
     ],
