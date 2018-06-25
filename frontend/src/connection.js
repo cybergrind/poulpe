@@ -7,13 +7,28 @@ class Connection {
 
   connect = () => {
     this.s = new WebSocket(`${WS_SERVER}/ws`)
-    this.s.onmessage = this.processMessage
-    this.s.onopen = this.onopen
+    this.s.addEventListener('message', this.processMessage)
+    this.s.addEventListener('open', this.onopen)
+    this.s.addEventListener('close', this.onclose)
+    this.s.addEventListener('error', this.onerror)
+    this.closing = false
   }
 
   onopen = () => {
     console.log('On open') // eslint-disable-line
     this.s.send(JSON.stringify({ msg_type: 'hello', body: 'hello' }))
+  }
+
+  onerror = (e) => {
+    console.log(`On error ${e}`)
+  }
+
+  onclose = () => {
+    console.log(`On close ${this.closing}`)
+    if (!this.closing) {
+      console.log('Reconnect')
+      this.connect()
+    }
   }
 
   processMessage = (m) => {
@@ -23,6 +38,7 @@ class Connection {
   }
 
   close = () => {
+    this.closing = true
     console.log('Closing socket')
     this.s.close()
     console.log('Closed socket')
